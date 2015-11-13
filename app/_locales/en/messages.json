@@ -1,0 +1,10 @@
+{
+  "appName": {
+    "message": "Beam",
+    "description": "The name of the application"
+  },
+  "appDescription": {
+    "message": "Send cool links to your friends",
+    "description": "The description of the application"
+  }
+}
