@@ -10,20 +10,34 @@ var BeamHandler = (function () {
 
     //Load settings
     this.settings = options;
+    this.socket = io.connect('http://localhost:3000/'); //replace with url later
+    /**
+    * Socket.io listeners
+    * Handle messages received from socket server
+    */
+    this.socket.on('connection', this.onConnection);
+    this.socket.on('incoming beam', this.onIncomingBeam);
+    this.socket.on('disconnect', this.onDisconnect);
   }
 
   _createClass(BeamHandler, [{
-    key: 'connection',
-    value: function connection(msg) {}
+    key: 'onConnection',
+    value: function onConnection(msg) {}
   }, {
-    key: 'disconnect',
-    value: function disconnect(msg) {}
+    key: 'onDisconnect',
+    value: function onDisconnect(msg) {}
+  }, {
+    key: 'sendBeamTab',
+    value: function sendBeamTab(url) {
+      this.socket.emit('beam tab', { url: url });
+      //TODO handle success from server, etc
+    }
   }, {
     key: 'incomingBeamCallback',
     value: function incomingBeamCallback(tab) {}
   }, {
-    key: 'incomingBeam',
-    value: function incomingBeam(msg) {
+    key: 'onIncomingBeam',
+    value: function onIncomingBeam(msg) {
       console.log('incoming beam', msg.url);
       chrome.tabs.create({ url: msg.url }, this.incomingBeamCallback);
     }
@@ -40,10 +54,22 @@ chrome.browserAction.setBadgeText({ text: '\'Allo' });
 
 console.log('\'Allo \'Allo! Event Page for Browser Action');
 
-var beamHandler = new BeamHandler();
-var socket = io.connect('http://localhost:3000/'); //replace with url later
+/**
+ * Instantiate beamHandler to handle socket connections
+ */
 
-socket.on('connection', beamHandler.connection);
-socket.on('incoming beam', beamHandler.incomingBeam);
-socket.on('disconnect', beamHandler.disconnect);
+var beamHandler = new BeamHandler();
+
+/**
+ * Chrome runtime listeners
+ * Messages sent from other parts of the extension will be received here
+ */
+chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
+  if (request.action === 'beamTab') {
+    var url = request.options.url;
+    console.log('beaming tab', url);
+    beamHandler.sendBeamTab(url);
+    sendResponse({ status: 'received' });
+  }
+});
 //# sourceMappingURL=background.js.map
