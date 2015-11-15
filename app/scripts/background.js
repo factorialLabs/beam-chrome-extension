@@ -5,25 +5,28 @@ class BeamHandler{
     //Load settings
     console.log(token)
     this.settings = options;
-    this.socket = io.connect('http://localhost:3000/'); //replace with url later
+    this.socket = io.connect('http://localhost:3000/', {'force new connection' : true, reconnect : false}); //replace with url later
     let that = this;
     this.socket.on('connect', function (socket) {
       /**
       * Handle login
       */
-      that.socket.on('authenticated', function (socket) {
-        /**
-        * Socket.io listeners
-        * Handle messages received from socket server
-        */
-        that.socket.on('incoming beam', that.onIncomingBeam);
-        that.socket.on('disconnect', that.onDisconnect);
-      })
-      .emit('authenticate', {token: token}); //send the jwt
+      that.socket.emit('authenticate', {token: token}); //send the jwt
+    });
 
-      that.socket.on("unauthorized", function(error) {
-          console.error("Error", error.message);
-      });
+    this.socket.on('authenticated', function (socket) {
+      
+    });
+
+   /**
+    * Socket.io listeners
+    * Handle messages received from socket server
+    */
+    this.socket.on('incoming beam', that.onIncomingBeam);
+    this.socket.on('disconnect', that.onDisconnect);
+
+    this.socket.on("unauthorized", function(error) {
+        console.error("Error", error.message);
     });
   }
   
@@ -75,7 +78,7 @@ console.log('\'Allo \'Allo! Event Page for Browser Action');
  */
 
 var user = {
-  email: 'houyuchen66@gmail.com',
+  email: 'jgzuke@gmail.com',
   password: 'password'  
 };
 
