@@ -79,11 +79,13 @@ var user = {
   password: 'password'  
 };
 
+let beamHandler;
+
 var logger = $.post( "http://localhost:3000/api/login/", user)
   .done(function(res) {
     console.log('logged in');
     let token = res.token;
-    let beamHandler = new BeamHandler(token);
+    beamHandler = new BeamHandler(token);
   })
   .fail(function(err) {
     console.error( "login error", err);
