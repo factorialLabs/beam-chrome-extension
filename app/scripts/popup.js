@@ -7,6 +7,7 @@ document.getElementById('beamTab').onclick = () => {
 			action: "beamTab",
 			data: {
 				message: document.getElementById("beamMessage").value,
+				recipient: document.getElementById("beamRecipient").value,
 				url: tabs[0].url
 			}
 		}

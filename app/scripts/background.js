@@ -51,11 +51,10 @@ class BeamHandler{
       console.log("Message sent to content script:", message);
       if (message.message){
         window.setTimeout(function() { 
-              chrome.tabs.sendMessage(tab.id, message, function(response){
-                console.log(response.status);
-              }); 
-           }, 2000);
-
+          chrome.tabs.sendMessage(tab.id, message, function(response){
+            console.log(response.status);
+          }); 
+       }, 2000);
       }
     });
   }
