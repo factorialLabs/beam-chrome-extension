@@ -37,13 +37,17 @@ class BeamHandler{
       }, data)
       console.log("Message sent to content script:", message);
       if (message.message){
-        chrome.tabs.sendMessage(tab.id, message, function(response){
-          console.log(response.status);
-        }); 
+        window.setTimeout(function() { 
+              chrome.tabs.sendMessage(tab.id, message, function(response){
+                console.log(response.status);
+              }); 
+           }, 2000);
+
       }
     });
   }
 }
+
 
 chrome.runtime.onInstalled.addListener(details => {
   console.log('previousVersion', details.previousVersion);
