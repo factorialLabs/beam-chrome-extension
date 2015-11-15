@@ -21,7 +21,7 @@ module.exports = function (grunt) {
   var config = {
     app: 'app',
     dist: 'dist',
-    srcScript: '<%= config.app %>/scripts.babel'
+    srcScript: '<%= config.app %>/scripts'
   };
 
   grunt.initConfig({
@@ -80,7 +80,7 @@ module.exports = function (grunt) {
           expand: true,
           cwd: '<%= config.srcScript %>',
           src: '{,*/}*.js',
-          dest: '<%= config.app %>/scripts',
+          dest: '<%= config.app %>/scripts-min',
           ext: '.js'
         }]
       }
