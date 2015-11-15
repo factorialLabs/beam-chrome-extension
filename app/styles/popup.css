@@ -1,0 +1,46 @@
+#beam-popup {
+  padding: 20px;
+  text-align: center;
+  background-color: blueviolet; }
+  #beam-popup h1 {
+    color: white;
+    text-transform: uppercase;
+    -webkit-font-smoothing: antialiased;
+    letter-spacing: 0.3px;
+    font-size: 35px;
+    margin: 0 0 10px 0; }
+  #beam-popup #beamMessage {
+    font-size: 16px;
+    text-transform: uppercase;
+    padding: 10px 20px 5px 5px;
+    background-color: blueviolet;
+    outline: none;
+    border: 0;
+    border-bottom: 1px dashed white;
+    width: 180px;
+    color: white;
+    -webkit-font-smoothing: antialiased;
+    letter-spacing: 0.3px;
+    font-weight: bold; }
+  #beam-popup #beamTab {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 16px;
+    padding: 10px;
+    text-transform: uppercase;
+    font-weight: bold;
+    background-color: white;
+    border: 0;
+    border-radius: 2px;
+    width: 180px;
+    cursor: pointer; }
+  #beam-popup ::-webkit-input-placeholder {
+    color: white; }
+  #beam-popup :moz-placeholder {
+    color: white; }
+  #beam-popup ::moz-placeholder {
+    color: white; }
+  #beam-popup :ms-input-placeholder {
+    color: white; }
+
+/*# sourceMappingURL=popup.css.map */

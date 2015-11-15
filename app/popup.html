@@ -7,12 +7,13 @@
     <!-- endbower -->
     <!-- endbuild -->
     <!-- build:css styles/main.css -->
-    <link href="styles/main.css" rel="stylesheet">
+    <link href="styles/popup.css" rel="stylesheet">
     <!-- endbuild -->
   </head>
-  <body>
-    <input id="beamMessage" placeholder="Message">
-    <button id="beamTab">Beam me up scotty</button>
+  <body id="beam-popup">
+    <h1>Beam</h1>
+    <textarea id="beamMessage" placeholder="Message"></textarea>
+    <button id="beamTab" type="submit">Beam me!</button>
 
     <!-- build:js scripts/popup-vendor.js -->
     <!-- bower:js -->
