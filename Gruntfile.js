@@ -45,6 +45,10 @@ module.exports = function (grunt) {
       gruntfile: {
         files: ['Gruntfile.js']
       },
+      sass: {
+        files: ['app/scss/*.scss'],
+        tasks: ['sass']
+      },
       styles: {
         files: ['<%= config.app %>/styles/{,*/}*.css'],
         tasks: [],
@@ -149,12 +153,20 @@ module.exports = function (grunt) {
     // Automatically inject Bower components into the HTML file
     bowerInstall: {
       app: {
-        src: [
-          '<%= config.app %>/*.html'
-        ]
+        src: ['<%= config.app %>/*.html']
       }
     },
-
+    sass: {
+      dist: {
+        files: [{
+          expand: true,
+          cwd: 'app/scss',
+          src: ['*.scss'],
+          dest: 'app/styles',
+          ext: '.css'
+        }]
+      }
+    },
     // Reads HTML for usemin blocks to enable smart builds that automatically
     // concat, minify and revision files. Creates configurations in memory so
     // additional tasks can operate on them
@@ -336,6 +348,7 @@ module.exports = function (grunt) {
     'chromeManifest:dist',
     'useminPrepare',
     'concurrent:dist',
+    'sass',
     'cssmin',
     'concat',
     'uglify',
