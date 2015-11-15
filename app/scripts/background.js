@@ -78,7 +78,7 @@ console.log('\'Allo \'Allo! Event Page for Browser Action');
  */
 
 var user = {
-  email: 'jgzuke@gmail.com',
+  email: 'dvhua@uwaterloo.ca',
   password: 'password'  
 };
 

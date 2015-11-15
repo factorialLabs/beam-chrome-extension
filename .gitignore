@@ -9,3 +9,5 @@ package
 scripts/*.js
 scripts/*.map
 
+
+app/libs/jquery/.DS_Store

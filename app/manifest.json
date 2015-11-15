@@ -37,6 +37,9 @@
         "http://*/*",
         "https://*/*"
       ],
+      "css":[
+        "styles/beamed-message.css"
+      ],
       "js": [
         "libs/jquery/jquery-1.11.3.min.js",
         "scripts/contentscript.js"
