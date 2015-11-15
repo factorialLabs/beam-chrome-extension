@@ -1,6 +1,6 @@
 {
   "name": "__MSG_appName__",
-  "version": "0.0.20",
+  "version": "0.0.33",
   "manifest_version": 2,
   "description": "__MSG_appDescription__",
   "icons": {
@@ -10,6 +10,7 @@
   "default_locale": "en",
   "background": {
     "scripts": [
+      "libs/underscore/underscore.min.js",
       "libs/socketio/socket.io.js",
       "scripts/chromereload.js",
       "scripts/background.js"
@@ -36,9 +37,10 @@
         "https://*/*"
       ],
       "js": [
+        "libs/jquery/jquery-1.11.3.min.js",
         "scripts/contentscript.js"
       ],
-      "run_at": "document_end",
+      "run_at": "document_start",
       "all_frames": false
     }
   ],

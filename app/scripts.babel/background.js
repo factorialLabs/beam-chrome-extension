@@ -27,14 +27,21 @@ class BeamHandler{
     this.socket.emit('beam tab', data);
     //TODO handle success from server, etc
   }
-  
-  incomingBeamCallback(tab){
-    
-  }
+
   
   onIncomingBeam(data){
-    console.log('incoming beam', data);
-    chrome.tabs.create({url: data.url}, this.incomingBeamCallback);
+    chrome.tabs.create({url: data.url}, function(tab){
+      // Now in the context of the (new) beamed tab. 
+      var message = _.extend({
+        action: "showMessage"
+      }, data)
+      console.log("Message sent to content script:", message);
+      if (message.message){
+        chrome.tabs.sendMessage(tab.id, message, function(response){
+          console.log(response.status);
+        }); 
+      }
+    });
   }
 }
 
