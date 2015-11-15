@@ -28,8 +28,9 @@ var BeamHandler = (function () {
     value: function onDisconnect(msg) {}
   }, {
     key: 'sendBeamTab',
-    value: function sendBeamTab(url) {
-      this.socket.emit('beam tab', { url: url });
+    value: function sendBeamTab(data) {
+      console.log("beaming", data);
+      this.socket.emit('beam tab', data);
       //TODO handle success from server, etc
     }
   }, {
@@ -37,9 +38,9 @@ var BeamHandler = (function () {
     value: function incomingBeamCallback(tab) {}
   }, {
     key: 'onIncomingBeam',
-    value: function onIncomingBeam(msg) {
-      console.log('incoming beam', msg.url);
-      chrome.tabs.create({ url: msg.url }, this.incomingBeamCallback);
+    value: function onIncomingBeam(data) {
+      console.log('incoming beam', data);
+      chrome.tabs.create({ url: data.url }, this.incomingBeamCallback);
     }
   }]);
 
@@ -66,9 +67,8 @@ var beamHandler = new BeamHandler();
  */
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
   if (request.action === 'beamTab') {
-    var url = request.options.url;
-    console.log('beaming tab', url);
-    beamHandler.sendBeamTab(url);
+    console.log('beaming tab', request.data.url);
+    beamHandler.sendBeamTab(request.data);
     sendResponse({ status: 'received' });
   }
 });

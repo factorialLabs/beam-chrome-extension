@@ -22,8 +22,9 @@ class BeamHandler{
     
   }
   
-  sendBeamTab(url){
-    this.socket.emit('beam tab', {url: url});
+  sendBeamTab(data){
+    console.log("beaming", data);
+    this.socket.emit('beam tab', data);
     //TODO handle success from server, etc
   }
   
@@ -31,9 +32,9 @@ class BeamHandler{
     
   }
   
-  onIncomingBeam(msg){
-    console.log('incoming beam', msg.url);
-    chrome.tabs.create({url: msg.url}, this.incomingBeamCallback);
+  onIncomingBeam(data){
+    console.log('incoming beam', data);
+    chrome.tabs.create({url: data.url}, this.incomingBeamCallback);
   }
 }
 
@@ -58,9 +59,8 @@ let beamHandler = new BeamHandler();
 chrome.runtime.onMessage.addListener(
   function(request, sender, sendResponse) {
     if (request.action === 'beamTab'){
-      let url = request.options.url;
-      console.log('beaming tab', url);
-      beamHandler.sendBeamTab(url);
+      console.log('beaming tab', request.data.url);
+      beamHandler.sendBeamTab(request.data);
       sendResponse({status: 'received'});
     }
   });
