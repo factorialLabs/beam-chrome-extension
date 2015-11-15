@@ -1,0 +1,52 @@
+#beam-popup{
+  padding: 20px;
+  text-align: center;
+  background-color: rgb(138, 43, 226);
+  h1{
+    color: white;
+    text-transform: uppercase;
+    -webkit-font-smoothing: antialiased;
+    letter-spacing: 0.3px;
+    font-size: 35px;
+    margin: 0 0 10px 0;
+  }
+  #beamMessage{
+    font-size: 16px;
+    text-transform: uppercase;
+    padding: 10px 20px 5px 5px;
+    background-color: rgb(138, 43, 226);
+    outline: none;
+    border: 0;
+    border-bottom: 1px dashed white;
+    width: 180px;
+    color: white;
+    -webkit-font-smoothing: antialiased;
+    letter-spacing: 0.3px;
+    font-weight: bold;
+  }
+  #beamTab{
+    text-align: center;
+    margin-top: 20px;
+    font-size: 16px;
+    padding: 10px;
+    text-transform: uppercase;
+    font-weight: bold;
+    background-color: white;
+    border: 0;
+    border-radius: 2px;
+    width: 180px;
+    cursor: pointer;
+  }
+  ::-webkit-input-placeholder{
+    color: white;
+  }
+  :moz-placeholder{
+    color: white;
+  }
+  ::moz-placeholder{
+    color: white;
+  }
+  :ms-input-placeholder{
+    color: white;
+  }
+}
