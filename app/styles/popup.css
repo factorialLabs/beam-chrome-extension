@@ -9,10 +9,11 @@
     letter-spacing: 0.3px;
     font-size: 35px;
     margin: 0 0 10px 0; }
-  #beam-popup #beamMessage {
+  #beam-popup .beam-input {
     font-size: 16px;
     text-transform: uppercase;
     padding: 10px 20px 5px 5px;
+    margin-top: 10px;
     background-color: blueviolet;
     outline: none;
     border: 0;
@@ -22,7 +23,7 @@
     -webkit-font-smoothing: antialiased;
     letter-spacing: 0.3px;
     font-weight: bold; }
-  #beam-popup #beamTab {
+  #beam-popup .beam-button {
     text-align: center;
     margin-top: 20px;
     font-size: 16px;
