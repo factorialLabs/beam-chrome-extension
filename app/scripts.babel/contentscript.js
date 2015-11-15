@@ -8,7 +8,7 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
 		console.log("showing message", request.message);
 		var messageDiv = $("<div>", {id:"beam-messageDiv"});
 		messageDiv.text(request.message); 
-		$(body).prepend(messageDiv);
+		$(document.body).prepend(messageDiv);
 		sendResponse({status:"Message Shown."});
 	}
 });
