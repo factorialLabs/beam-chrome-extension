@@ -1,5 +1,29 @@
 'use strict';
 
+$('#login-pane').show();
+$('#action-pane').hide();
+
+//handle login button click
+$('#loginBtn').click(function(){
+	chrome.runtime.sendMessage({action: 'is user logged in'}, response => {
+		
+	});
+});
+		
+chrome.runtime.sendMessage({action: 'is user logged in'}, response => {
+	//callback from background.js
+	console.log('logged in state: ' + response.loggedInState);
+	if(response.loggedInState){
+		//logged in
+		$('#login-pane').hide();
+		$('#action-pane').show();
+	}else{
+		//not in
+		$('#login-pane').show();
+		$('#action-pane').hide();
+	}
+});
+
 document.getElementById('beamTab').onclick = () => {
 	chrome.tabs.query({ currentWindow: true, active: true }, tabs => {
 		//current tab is tabs[0]

@@ -1,7 +1,12 @@
+.hidden {
+  display: none; }
+
 #beam-popup {
   padding: 20px;
   text-align: center;
   background-color: blueviolet; }
+  #beam-popup p {
+    color: white; }
   #beam-popup h1 {
     color: white;
     text-transform: uppercase;

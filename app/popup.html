@@ -12,9 +12,19 @@
   </head>
   <body id="beam-popup">
     <h1>Beam</h1>
-    <input id="beamRecipient" class="beam-input" placeholder="recipient">
-    <input id="beamMessage" class="beam-input" placeholder="Message">
-    <button id="beamTab" class="beam-button" type="submit">Beam me!</button>
+    <section id="login-pane">
+      <p>This is a very serious login screen. Your login information is saved securely.<p>
+      <form>
+        <input type="text" id="username" name="username" class="beam-input" placeholder="Username">
+        <input type="password" id="password" name="password" class="beam-input" placeholder="Password">
+        <button id="loginBtn" class="beam-button" type="submit">Login</button>
+      </form>
+    </section>
+    <section id="action-pane">
+      <input id="beamRecipient" class="beam-input" placeholder="recipient">
+      <input id="beamMessage" class="beam-input" placeholder="Message">
+      <button id="beamTab" class="beam-button" type="submit">Beam me!</button>
+    </section>
 
     <!-- build:js scripts/popup-vendor.js -->
     <!-- bower:js -->
@@ -22,6 +32,7 @@
     <!-- endbuild -->
 
     <!-- build:js scripts/popup.js -->
+    <script src="libs/jquery/jquery-1.11.3.min.js"></script>
     <script src="scripts/popup.js"></script>
     <!-- endbuild -->
   </body>

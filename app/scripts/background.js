@@ -1,11 +1,10 @@
 'use strict';
-
 class BeamHandler{
   constructor(token, options) {
     //Load settings
     console.log(token)
     this.settings = options;
-    this.socket = io.connect('http://localhost:3000/', {'force new connection' : true, reconnect : false}); //replace with url later
+    this.socket = io.connect('http://beam.azurewebsites.net/', {'force new connection' : true, reconnect : false}); //replace with url later
     let that = this;
     this.socket.on('connect', function (socket) {
       /**
@@ -77,13 +76,15 @@ console.log('\'Allo \'Allo! Event Page for Browser Action');
  */
 
 var user = {
-  email: 'dvhua@uwaterloo.ca',
+  email: 'me@yuchen.io',
   password: 'password'  
 };
 
 let beamHandler;
 
-var logger = $.post( "http://localhost:3000/api/login/", user)
+var persistance = new Persistance();
+
+var logger = $.post( "http://beam.azurewebsites.net/api/login/", user)
   .done(function(res) {
     console.log('logged in');
     let token = res.token;
@@ -93,16 +94,27 @@ var logger = $.post( "http://localhost:3000/api/login/", user)
     console.error( "login error", err);
   });
 
-
 /**
  * Chrome runtime listeners
  * Messages sent from other parts of the extension will be received here
  */
 chrome.runtime.onMessage.addListener(
   function(request, sender, sendResponse) {
-    if (request.action === 'beamTab'){
-      console.log('beaming tab', request.data.url);
-      beamHandler.sendBeamTab(request.data);
-      sendResponse({status: 'received'});
+    console.log('got message: ' + request.action);
+    switch (request.action){
+      case 'beamTab':
+        console.log('beaming tab', request.data.url);
+        beamHandler.sendBeamTab(request.data);
+        sendResponse({status: 'received'});
+        break;
+      case 'is user logged in':
+        persistance.isUserLoggedIn().then(
+          function(state){
+            console.log('logged in state is ' + state);
+            sendResponse({loggedInState: state});
+          }
+        )
+        return true; //alow async response
+        break;
     }
   });

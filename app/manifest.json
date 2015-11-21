@@ -14,6 +14,7 @@
       "libs/socketio/socket.io.js",
       "scripts/chromereload.js",
       "libs/jquery/jquery-1.11.3.min.js",
+      "scripts/persistance.js",
       "scripts/background.js"
     ]
   },
