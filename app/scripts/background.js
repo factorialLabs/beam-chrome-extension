@@ -84,7 +84,8 @@ let beamHandler;
 
 var persistance = new Persistance();
 
-var logger = $.post( "http://beam.azurewebsites.net/api/login/", user)
+var logIn = function(){
+  $.post( "http://beam.azurewebsites.net/api/login/", user)
   .done(function(res) {
     console.log('logged in');
     let token = res.token;
@@ -93,6 +94,7 @@ var logger = $.post( "http://beam.azurewebsites.net/api/login/", user)
   .fail(function(err) {
     console.error( "login error", err);
   });
+};
 
 /**
  * Chrome runtime listeners
@@ -106,6 +108,9 @@ chrome.runtime.onMessage.addListener(
         console.log('beaming tab', request.data.url);
         beamHandler.sendBeamTab(request.data);
         sendResponse({status: 'received'});
+        break;
+      case 'log in':
+        
         break;
       case 'is user logged in':
         persistance.isUserLoggedIn().then(

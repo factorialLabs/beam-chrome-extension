@@ -5,8 +5,10 @@ $('#beam-signup').hide();
 $('#beam-action').hide();
 
 //handle login button click
-$('#loginBtn').click(function(){
-	chrome.runtime.sendMessage({action: 'is user logged in'}, response => {
+$('#beamLogin').click(function(){
+	let user = $('#beam-login > #beamUsername').val();
+	let pwd = $('#beam-login > #beamPassword').val();
+	chrome.runtime.sendMessage({action: 'log in', credentials:{username:user,password:pwd}}, response => {
 		
 	});
 });
