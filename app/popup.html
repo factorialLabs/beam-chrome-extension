@@ -12,10 +12,26 @@
   </head>
   <body id="beam-popup">
     <h1>Beam</h1>
-    <input id="beamRecipient" class="beam-input" placeholder="recipient">
-    <input id="beamMessage" class="beam-input" placeholder="Message">
-    <button id="beamTab" class="beam-button" type="submit">Beam me!</button>
+    <div class="beam-container">
+        <input id="beamRecipient" class="beam-input" placeholder="recipient">
+        <input id="beamMessage" class="beam-input" placeholder="Message">
+        <button id="beamTab" class="beam-button" type="submit">Beam me!</button>
 
+        <div id="beamLogout"></div>
+    </div>
+    <div class="beam-login">
+        <input id="beamUsername" class="beam-input" placeholder="Username">
+        <input id="beamPassword" class="beam-input" placeholder="Password" type="password">
+        <button id="beamLogin" class="beam-button" type="submit">Login!</button>
+        <h3><u> Or sign up! </u></h3>
+    </div>
+    <div class="beam-signup">
+        <input id="beamUsername" class="beam-input" placeholder="Email">
+        <input id="beamUsername" class="beam-input" placeholder="Username">
+        <input id="beamPassword" class="beam-input" placeholder="Password" type="password">
+        <button id="beamSignup" class="beam-button" type="submit">Sign up!</button>
+        <h3><u> Login! </u></h3>
+    </div>
     <!-- build:js scripts/popup-vendor.js -->
     <!-- bower:js -->
     <!-- endbower -->
