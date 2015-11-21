@@ -49,6 +49,8 @@ document.getElementById('beamTab').onclick = () => {
 		chrome.runtime.sendMessage(message, response => {
 			//callback from background.js
 			console.log(response.status);
+			//TODO show currently beaming screen then close the window
+			window.close();
 		});
 	});
 }
