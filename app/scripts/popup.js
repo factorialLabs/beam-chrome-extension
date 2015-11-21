@@ -1,7 +1,8 @@
 'use strict';
 
-$('#login-pane').show();
-$('#action-pane').hide();
+$('#beam-login').show();
+$('#beam-signup').hide();
+$('#beam-action').hide();
 
 //handle login button click
 $('#loginBtn').click(function(){
@@ -17,10 +18,12 @@ chrome.runtime.sendMessage({action: 'is user logged in'}, response => {
 		//logged in
 		$('#login-pane').hide();
 		$('#action-pane').show();
+		$('#beam-signup').hide();
 	}else{
 		//not in
 		$('#login-pane').show();
 		$('#action-pane').hide();
+		$('#beam-signup').hide();
 	}
 });
 
