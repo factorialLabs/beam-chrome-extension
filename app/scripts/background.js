@@ -47,13 +47,13 @@ class BeamHandler{
   onIncomingBeam(data){
     chrome.tabs.create({url: data.url}, function(tab){
       // Now in the context of the (new) beamed tab. 
-      var message = _.extend({
+      _.extend(data, {
         action: "showMessage"
-      }, data)
-      console.log("Message sent to content script:", message);
-      if (message.message){
+      });
+      if (data.message){
+        console.log("Message sent to content script:", data);
         window.setTimeout(function() { 
-          chrome.tabs.sendMessage(tab.id, message, function(response){
+          chrome.tabs.sendMessage(tab.id, data, function(response){
             console.log(response.status);
           }); 
        }, 2000);

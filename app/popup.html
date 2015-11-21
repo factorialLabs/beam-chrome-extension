@@ -12,20 +12,26 @@
   </head>
   <body id="beam-popup">
     <h1>Beam</h1>
-    <section id="login-pane">
-      <p>This is a very serious login screen. Your login information is saved securely.<p>
-      <form>
-        <input type="text" id="username" name="username" class="beam-input" placeholder="Username">
-        <input type="password" id="password" name="password" class="beam-input" placeholder="Password">
-        <button id="loginBtn" class="beam-button" type="submit">Login</button>
-      </form>
-    </section>
-    <section id="action-pane">
-      <input id="beamRecipient" class="beam-input" placeholder="recipient">
-      <input id="beamMessage" class="beam-input" placeholder="Message">
-      <button id="beamTab" class="beam-button" type="submit">Beam me!</button>
-    </section>
+    <section class="beam-container">
+        <input id="beamRecipient" class="beam-input" placeholder="recipient">
+        <input id="beamMessage" class="beam-input" placeholder="Message">
+        <button id="beamTab" class="beam-button" type="submit">Beam me!</button>
 
+        <div id="beamLogout"></div>
+    </section>
+    <section class="beam-login">
+        <input id="beamUsername" class="beam-input" placeholder="Username">
+        <input id="beamPassword" class="beam-input" placeholder="Password" type="password">
+        <button id="beamLogin" class="beam-button" type="submit">Login!</button>
+        <h3><u> Or sign up! </u></h3>
+    </section>
+    <section class="beam-signup">
+        <input id="beamUsername" class="beam-input" placeholder="Email">
+        <input id="beamUsername" class="beam-input" placeholder="Username">
+        <input id="beamPassword" class="beam-input" placeholder="Password" type="password">
+        <button id="beamSignup" class="beam-button" type="submit">Sign up!</button>
+        <h3><u> Login! </u></h3>
+    </section>
     <!-- build:js scripts/popup-vendor.js -->
     <!-- bower:js -->
     <!-- endbower -->
