@@ -62,10 +62,11 @@ class BeamHandler{
   }
 }
 
-
+/*
 chrome.runtime.onInstalled.addListener(details => {
   console.log('previousVersion', details.previousVersion);
 });
+*/
 
 chrome.browserAction.setBadgeText({text: '\'Allo'});
 
@@ -75,24 +76,30 @@ console.log('\'Allo \'Allo! Event Page for Browser Action');
  * Instantiate beamHandler to handle socket connections
  */
 
-var user = {
-  email: 'me@yuchen.io',
-  password: 'password'  
-};
-
 let beamHandler;
-
 var persistance = new Persistance();
 
-var logIn = function(){
-  $.post( "http://beam.azurewebsites.net/api/login/", user)
-  .done(function(res) {
-    console.log('logged in');
-    let token = res.token;
-    beamHandler = new BeamHandler(token);
-  })
-  .fail(function(err) {
-    console.error( "login error", err);
+persistance.getUserToken().then(function(token){
+  beamHandler = new BeamHandler(token);
+})
+
+
+var logIn = function(user){
+  return new Promise(function(resolve, reject) {
+    $.post( "http://beam.azurewebsites.net/api/login/", user)
+    .done(function(res) {
+      console.log('logged in');
+      let token = res.token;
+      beamHandler = new BeamHandler(token);
+      persistance.setUserToken(token).then(function(){
+        resolve();
+      }).catch(function(){
+        reject('storage error');
+      });
+    })
+    .fail(function(err) {
+      reject(err);
+    });
   });
 };
 
@@ -110,7 +117,12 @@ chrome.runtime.onMessage.addListener(
         sendResponse({status: 'received'});
         break;
       case 'log in':
-        
+        logIn(request.credentials).then(function(){
+          sendResponse({success: true});
+        }).catch(function(err){
+          sendResponse({success: false, reason: err});
+        });
+        return true; //alow async response
         break;
       case 'is user logged in':
         persistance.isUserLoggedIn().then(
