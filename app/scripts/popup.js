@@ -4,20 +4,20 @@ var handleLoginState = function(state){
 	console.log('logged in state: ' + state);
 	if(state){
 		//logged in
-		$('#beam-login').hide();
-		$('#beam-action').show();
-		$('#beam-signup').hide();
+		$('#beam-login').hide(0);
+		$('#beam-action').show(0);
+		$('#beam-signup').hide(0);
 	}else{
 		//not in
-		$('#beam-login').show();
-		$('#beam-action').hide();
-		$('#beam-signup').hide();
+		$('#beam-login').show(0);
+		$('#beam-action').hide(0);
+		$('#beam-signup').hide(0);
 	}
 }
 
-$('#beam-login').show();
-$('#beam-signup').hide();
-$('#beam-action').hide();
+$('#beam-login').show(0);
+$('#beam-signup').hide(0);
+$('#beam-action').hide(0);
 
 //handle login button click
 $('#beamLogin').click(function(){
