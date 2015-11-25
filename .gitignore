@@ -8,6 +8,7 @@ test/bower_components
 package
 scripts/*.js
 scripts/*.map
-
+.DS_Store
+/.idea
 
 app/libs/jquery/.DS_Store

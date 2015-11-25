@@ -108,6 +108,18 @@ var logIn = function(user){
   });
 };
 
+var logout = function(){
+  return new Promise(function(resolve, reject){
+    $.get("http://beam.azurewebsites.net/logout")
+    .done(function(res){
+      resolve();
+    })
+    .catch(function(err){
+      reject("Could not logout.");
+    })
+  })
+}
+
 /**
  * Chrome runtime listeners
  * Messages sent from other parts of the extension will be received here
@@ -122,13 +134,29 @@ chrome.runtime.onMessage.addListener(
         sendResponse({status: 'received'});
         break;
       case 'log in':
-        logIn(request.credentials).then(function(){
+        logIn(request.credentials)
+        .then(function(){
           sendResponse({success: true});
-        }).catch(function(err){
+        })
+        .catch(function(err){
           sendResponse({success: false, reason: err});
         });
         return true; //alow async response
         break;
+      case 'user:logout':
+        logout()
+        .then(function(){
+          return persistance.clearUserToken(); // Clear the local token
+        })
+        .then(function(){
+          return persistance.isUserLoggedIn(); // Confirm it's been removed
+        })
+        .then(function(state){
+          sendResponse({success: true, loggedIn: state});
+        })
+        .catch(function(err){
+          sendResponse({success: false, reason: err});
+        })
       case 'is user logged in':
         persistance.isUserLoggedIn().then(
           function(state){
