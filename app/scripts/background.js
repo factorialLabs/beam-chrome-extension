@@ -4,7 +4,7 @@ class BeamHandler{
     //Load settings
     console.log(token)
     this.settings = options;
-    this.socket = io.connect('http://localhost:3000/', {'force new connection' : true, reconnect : false}); //replace with url later
+    this.socket = io.connect('http://beam.azurewebsites.net/', {'force new connection' : true, reconnect : false}); //replace with url later
     let that = this;
     this.socket.on('connect', function (socket) {
       /**
@@ -91,7 +91,7 @@ persistance.getUserToken().then(function(token){
 
 var logIn = function(user){
   return new Promise(function(resolve, reject) {
-    $.post( "http://localhost:3000/api/login/", user)
+    $.post( "http://beam.azurewebsites.net/api/login/", user)
     .done(function(res) {
       console.log('logged in');
       let token = res.token;
