@@ -54,3 +54,21 @@ document.getElementById('beamTab').onclick = () => {
 		});
 	});
 }
+
+document.getElementById('friendAddBtn').onclick = () => {
+	chrome.tabs.query({ currentWindow: true, active: true }, tabs => {
+		//current tab is tabs[0]
+		var message = {
+			action: "add friend",
+			data: {
+				email: document.getElementById("addFriendEmail").value
+			}
+		}
+		chrome.runtime.sendMessage(message, response => {
+			//callback from background.js
+			console.log(response.status);
+			//TODO show currently beaming screen then close the window
+			window.close();
+		});
+	});
+}

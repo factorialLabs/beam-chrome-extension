@@ -4,7 +4,7 @@ class BeamHandler{
     //Load settings
     console.log(token)
     this.settings = options;
-    this.socket = io.connect('http://beam.azurewebsites.net/', {'force new connection' : true, reconnect : false}); //replace with url later
+    this.socket = io.connect('http://localhost:3000/', {'force new connection' : true, reconnect : false}); //replace with url later
     let that = this;
     this.socket.on('connect', function (socket) {
       /**
@@ -43,6 +43,11 @@ class BeamHandler{
     //TODO handle success from server, etc
   }
 
+  addFriend(email, cb){
+    console.log("adding friend", email);
+    this.socket.emit('send friend invite', email);
+    //TODO handle success from server, etc
+  }
   
   onIncomingBeam(data){
     chrome.tabs.create({url: data.url}, function(tab){
@@ -86,7 +91,7 @@ persistance.getUserToken().then(function(token){
 
 var logIn = function(user){
   return new Promise(function(resolve, reject) {
-    $.post( "http://beam.azurewebsites.net/api/login/", user)
+    $.post( "http://localhost:3000/api/login/", user)
     .done(function(res) {
       console.log('logged in');
       let token = res.token;
@@ -131,6 +136,10 @@ chrome.runtime.onMessage.addListener(
             sendResponse({loggedInState: state});
           }
         )
+        return true; //alow async response
+        break;
+      case 'add friend':
+        beamHandler.addFriend(request.data.email, sendResponse);
         return true; //alow async response
         break;
     }
