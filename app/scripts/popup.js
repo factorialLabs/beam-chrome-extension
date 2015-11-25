@@ -22,7 +22,7 @@ $('#beam-action').hide();
 //handle login button click
 $('#beamLogin').click(function(){
 	var userObj = {
-		user: $('#beam-login > #beamUsername').val(),
+		email: $('#beam-login > #beamUsername').val(),
 		password: $('#beam-login > #beamPassword').val()
 	}
 	chrome.runtime.sendMessage({action: 'log in', credentials: userObj}, response => {
@@ -33,6 +33,7 @@ $('#beamLogin').click(function(){
 		
 $('#beamLogout').click(function(){
 	chrome.runtime.sendMessage({action: "user:logout"}, response => {
+		console.log(response);
 		handleLoginState(response.loggedIn);
 	});
 });
