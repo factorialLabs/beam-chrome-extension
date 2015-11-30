@@ -42,7 +42,7 @@ chrome.runtime.sendMessage({action: 'is user logged in'}, response => {
 	handleLoginState(response.loggedInState);
 });
 
-$('#beamTab').click = () => {
+$('#beamTab').click(function(){
 	chrome.tabs.query({ currentWindow: true, active: true }, tabs => {
 		//current tab is tabs[0]
 		var message = {
@@ -60,9 +60,10 @@ $('#beamTab').click = () => {
 			window.close();
 		});
 	});
-}
+});
 
-$('#friendAddBtn').click = () => {
+
+$('#friendAddBtn').click(function(){
 	chrome.tabs.query({ currentWindow: true, active: true }, tabs => {
 		//current tab is tabs[0]
 		var message = {
@@ -78,4 +79,4 @@ $('#friendAddBtn').click = () => {
 			window.close();
 		});
 	});
-}
+});
