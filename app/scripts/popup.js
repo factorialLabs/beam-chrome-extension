@@ -2,47 +2,54 @@
 
 var handleLoginState = function(state){
 	console.log('logged in state: ' + state);
-	if(state){
+	if (state) {
 		//logged in
-		$('#beam-login').hide(0);
-		$('#beam-action').show(0);
-		$('#beam-signup').hide(0);
-	}else{
+		$('#beam-login').hide();
+		$('#beam-action').show();
+		$('#beam-signup').hide();
+	} else {
 		//not in
-		$('#beam-login').show(0);
-		$('#beam-action').hide(0);
-		$('#beam-signup').hide(0);
+		$('#beam-login').show();
+		$('#beam-action').hide();
+		$('#beam-signup').hide();
 	}
 }
-
-$('#beam-login').show(0);
-$('#beam-signup').hide(0);
-$('#beam-action').hide(0);
+// Default State
+$('#beam-login').show();
+$('#beam-signup').hide();
+$('#beam-action').hide();
 
 //handle login button click
 $('#beamLogin').click(function(){
-	let user = $('#beam-login > #beamUsername').val();
-	let pwd = $('#beam-login > #beamPassword').val();
-	let userObj = {email:user,password:pwd};
-	chrome.runtime.sendMessage({action: 'log in', credentials:userObj}, response => {
+	var userObj = {
+		email: $('#beam-login > #beamUsername').val(),
+		password: $('#beam-login > #beamPassword').val()
+	}
+	chrome.runtime.sendMessage({action: 'log in', credentials: userObj}, response => {
 		handleLoginState(response.success);
 		console.log(response);
 	});
 });
 		
+$('#beamLogout').click(function(){
+	chrome.runtime.sendMessage({action: "user:logout"}, response => {
+		console.log(response);
+		handleLoginState(response.loggedIn);
+	});
+});
 chrome.runtime.sendMessage({action: 'is user logged in'}, response => {
 	//callback from background.js
 	handleLoginState(response.loggedInState);
 });
 
-document.getElementById('beamTab').onclick = () => {
+$('#beamTab').click(function(){
 	chrome.tabs.query({ currentWindow: true, active: true }, tabs => {
 		//current tab is tabs[0]
 		var message = {
 			action: "beamTab",
 			data: {
-				message: document.getElementById("beamMessage").value,
-				recipient: document.getElementById("beamRecipient").value,
+				message: $("#beamMessage").val(),
+				recipient: $("#beamRecipient").val(),
 				url: tabs[0].url
 			}
 		}
@@ -53,15 +60,16 @@ document.getElementById('beamTab').onclick = () => {
 			window.close();
 		});
 	});
-}
+});
 
-document.getElementById('friendAddBtn').onclick = () => {
+
+$('#friendAddBtn').click(function(){
 	chrome.tabs.query({ currentWindow: true, active: true }, tabs => {
 		//current tab is tabs[0]
 		var message = {
 			action: "add friend",
 			data: {
-				email: document.getElementById("addFriendEmail").value
+				email: $("#addFriendEmail").val()
 			}
 		}
 		chrome.runtime.sendMessage(message, response => {
@@ -71,4 +79,4 @@ document.getElementById('friendAddBtn').onclick = () => {
 			window.close();
 		});
 	});
-}
+});

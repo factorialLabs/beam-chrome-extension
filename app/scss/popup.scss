@@ -31,6 +31,9 @@
     -webkit-font-smoothing: antialiased;
     letter-spacing: 0.3px;
     font-weight: bold;
+    &#beam-username, &#beam-email{
+      text-transform: none;
+    }
   }
   .beam-button{
     text-align: center;
@@ -44,6 +47,19 @@
     border-radius: 2px;
     width: 180px;
     cursor: pointer;
+  }
+  .beam-secondary-button{
+    text-align: center;
+    margin-top: 20px;
+    font-size: 13px;
+    padding: 7px;
+    text-transform: uppercase;
+    font-weight: bold;
+    border: 0;
+    border-radius: 2px;
+    width: 120px;
+    cursor: pointer;
+    background-color: white;
   }
   ::-webkit-input-placeholder{
     color: white;
