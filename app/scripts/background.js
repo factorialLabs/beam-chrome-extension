@@ -55,14 +55,12 @@ class BeamHandler{
       _.extend(data, {
         action: "showMessage"
       });
-      if (data.message){
-        console.log("Message sent to content script:", data);
-        window.setTimeout(function() { 
-          chrome.tabs.sendMessage(tab.id, data, function(response){
-            console.log(response.status);
-          }); 
-       }, 2000);
-      }
+      console.log("Message sent to content script:", data);
+      window.setTimeout(function() { 
+        chrome.tabs.sendMessage(tab.id, data, function(response){
+          console.log(response.status);
+        }); 
+      }, 500);
     });
   }
 }

@@ -7,7 +7,11 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
 	if (request.action === "showMessage"){
 		console.log("showing message", request.message);
 		var messageDiv = $("<div>", {id:"beam-messageDiv", class:"beam-messageDiv visible"});
-		messageDiv.text("Beam from "+ request.fromUser + ": " + request.message); 
+		if(request.message){
+			messageDiv.text("Beam from "+ request.fromUser + ": " + request.message); 
+		}else{
+			messageDiv.text("Beam from "+ request.fromUser); 
+		}
 		var closeBeamMessage = $("<span id='beam-closeMessage'>X</span>");
 		closeBeamMessage.click(function(){
 			messageDiv.fadeOut(600, function(){
