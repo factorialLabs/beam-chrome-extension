@@ -60,7 +60,7 @@ class BeamHandler{
         chrome.tabs.sendMessage(tab.id, data, function(response){
           console.log(response.status);
         }); 
-      }, 500);
+      }, 1000);
     });
   }
 }
