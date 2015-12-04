@@ -37,9 +37,16 @@ $('#beamLogout').click(function(){
 		handleLoginState(response.loggedIn);
 	});
 });
+
+//get logged in state from service
 chrome.runtime.sendMessage({action: 'background::user:isLoggedIn'}, response => {
 	//callback from background.js
 	handleLoginState(response.loggedInState);
+});
+
+//get friend request state from background.js
+chrome.runtime.sendMessage({action: 'background::friend:requests:get'}, response => {
+	console.log(response);
 });
 
 $('#beamTab').click(function(){

@@ -31,9 +31,12 @@ class BeamHandler{
   }
   
   onFriendRequests(msg){
-    chrome.runtime.sendMessage({action: 'popup::friend:requests', requests: msg}, response => {
-      console.log(response);
-    });
+    console.log('incoming friend requests', msg);
+    this.friendRequests = msg.requests;
+  }
+  
+  getFriendRequests(){
+    return this.friendRequests;
   }
   
   onConnection(msg){
@@ -177,5 +180,9 @@ chrome.runtime.onMessage.addListener(
         beamHandler.addFriend(request.data.email, sendResponse);
         return true; //alow async response
         break;
-    }
+      case 'background::friend:requests:get':
+        console.log(beamHandler.getFriendRequests())
+        sendResponse(beamHandler.getFriendRequests());
+        break;      
+      }
   });
