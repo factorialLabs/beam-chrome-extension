@@ -14,7 +14,7 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
 		}
 		var closeBeamMessage = $("<span id='beam-closeMessage'>X</span>");
 		closeBeamMessage.click(function(){
-			messageDiv.fadeOut(600, function(){
+			messageDiv.fadeOut(400, function(){
 
 			});
 		});
