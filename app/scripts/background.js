@@ -23,10 +23,15 @@ class BeamHandler{
     */
     this.socket.on('incoming beam', that.onIncomingBeam);
     this.socket.on('disconnect', that.onDisconnect);
+    this.socket.on('friend:requests', that.onFriendRequests);
 
     this.socket.on("unauthorized", function(error) {
         console.error("Error", error.message);
     });
+  }
+  
+  onFriendRequests(msg){
+    console.log(msg);
   }
   
   onConnection(msg){
