@@ -4,7 +4,7 @@ console.log('\'Allo \'Allo! Content script');
 
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
 	console.log("Message received.");
-	if (request.action === "showMessage"){
+	if (request.action === "contentScript::message:show"){
 		console.log("showing message", request.message);
 		var messageDiv = $("<div>", {id:"beam-messageDiv", class:"beam-messageDiv visible"});
 		if(request.message){

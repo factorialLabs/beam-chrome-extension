@@ -25,19 +25,19 @@ $('#beamLogin').click(function(){
 		email: $('#beam-login > #beamUsername').val(),
 		password: $('#beam-login > #beamPassword').val()
 	}
-	chrome.runtime.sendMessage({action: 'log in', credentials: userObj}, response => {
+	chrome.runtime.sendMessage({action: 'background::user:login', credentials: userObj}, response => {
 		handleLoginState(response.success);
 		console.log(response);
 	});
 });
 		
 $('#beamLogout').click(function(){
-	chrome.runtime.sendMessage({action: "user:logout"}, response => {
+	chrome.runtime.sendMessage({action: "background::user:logout"}, response => {
 		console.log(response);
 		handleLoginState(response.loggedIn);
 	});
 });
-chrome.runtime.sendMessage({action: 'is user logged in'}, response => {
+chrome.runtime.sendMessage({action: 'background::user:isLoggedIn'}, response => {
 	//callback from background.js
 	handleLoginState(response.loggedInState);
 });
@@ -46,7 +46,7 @@ $('#beamTab').click(function(){
 	chrome.tabs.query({ currentWindow: true, active: true }, tabs => {
 		//current tab is tabs[0]
 		var message = {
-			action: "beamTab",
+			action: "background::beam:send",
 			data: {
 				message: $("#beamMessage").val(),
 				recipient: $("#beamRecipient").val(),
@@ -67,7 +67,7 @@ $('#friendAddBtn').click(function(){
 	chrome.tabs.query({ currentWindow: true, active: true }, tabs => {
 		//current tab is tabs[0]
 		var message = {
-			action: "add friend",
+			action: "background::friend:add",
 			data: {
 				email: $("#addFriendEmail").val()
 			}

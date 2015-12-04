@@ -31,7 +31,9 @@ class BeamHandler{
   }
   
   onFriendRequests(msg){
-    console.log(msg);
+    chrome.runtime.sendMessage({action: 'popup::friend:requests', requests: msg}, response => {
+      console.log(response);
+    });
   }
   
   onConnection(msg){
@@ -58,7 +60,7 @@ class BeamHandler{
     chrome.tabs.create({url: data.url}, function(tab){
       // Now in the context of the (new) beamed tab. 
       _.extend(data, {
-        action: "showMessage"
+        action: "contentScript::message:show"
       });
       console.log("Message sent to content script:", data);
       window.setTimeout(function() { 
@@ -131,12 +133,12 @@ chrome.runtime.onMessage.addListener(
   function(request, sender, sendResponse) {
     console.log('got message: ' + request.action);
     switch (request.action){
-      case 'beamTab':
+      case 'background::beam:send':
         console.log('beaming tab', request.data.url);
         beamHandler.sendBeamTab(request.data);
         sendResponse({status: 'received'});
         break;
-      case 'log in':
+      case 'background::user:login':
         logIn(request.credentials)
         .then(function(){
           sendResponse({success: true});
@@ -146,7 +148,7 @@ chrome.runtime.onMessage.addListener(
         });
         return true; //alow async response
         break;
-      case 'user:logout':
+      case 'background::user:logout':
         logout()
         .then(function(){
           return persistance.clearUserToken(); // Clear the local token
@@ -162,7 +164,7 @@ chrome.runtime.onMessage.addListener(
         })
         return true;
         break;
-      case 'is user logged in':
+      case 'background::user:isLoggedIn':
         persistance.isUserLoggedIn().then(
           function(state){
             console.log('logged in state is ' + state);
@@ -171,7 +173,7 @@ chrome.runtime.onMessage.addListener(
         )
         return true; //alow async response
         break;
-      case 'add friend':
+      case 'background::friend:add':
         beamHandler.addFriend(request.data.email, sendResponse);
         return true; //alow async response
         break;
