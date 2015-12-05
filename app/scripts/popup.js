@@ -18,6 +18,7 @@ var handleLoginState = function(state){
 $('#beam-login').show();
 $('#beam-signup').hide();
 $('#beam-action').hide();
+$('#pendingFriendRequests').hide();
 
 //handle login button click
 $('#beamLogin').click(function(){
@@ -47,6 +48,12 @@ chrome.runtime.sendMessage({action: 'background::user:isLoggedIn'}, response => 
 //get friend request state from background.js
 chrome.runtime.sendMessage({action: 'background::friend:requests:get'}, response => {
 	console.log(response);
+	for(let i of response){
+			$('#pendingFriendRequests').append(
+				"<h2>" + i.email + "</h2>"
+			);
+	}
+	$('#pendingFriendRequests').show(1000);
 });
 
 $('#beamTab').click(function(){
