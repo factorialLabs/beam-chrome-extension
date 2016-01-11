@@ -1,5 +1,5 @@
 'use strict';
-var mode = "debug";
+var mode = "prod";
 
 var server = {
     debug: "http://localhost:3000",
