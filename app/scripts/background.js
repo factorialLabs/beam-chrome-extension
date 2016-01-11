@@ -1,10 +1,17 @@
 'use strict';
+var mode = "debug";
+
+var server = {
+    debug: "http://localhost:3000",
+    prod: "http://beam.azurewebsites.net"
+};
+
 class BeamHandler{
   constructor(token, options) {
     //Load settings
-    console.log(token)
+    console.log("logging to ", server[mode]);
     this.settings = options;
-    this.socket = io.connect('http://beam.azurewebsites.net', {'force new connection' : true, reconnect : false}); //replace with url later
+    this.socket = io.connect(server[mode], {'force new connection' : true, reconnect : false}); //replace with url later
     let that = this;
     this.socket.on('connect', function (socket) {
       /**
@@ -14,7 +21,7 @@ class BeamHandler{
     });
 
     this.socket.on('authenticated', function (socket) {
-      
+      that.socket.emit("users:request:show all");
     });
 
    /**
@@ -22,6 +29,7 @@ class BeamHandler{
     * Handle messages received from socket server
     */
     this.socket.on('incoming beam', that.onIncomingBeam);
+    this.socket.on('users:show all', that.showAllUsers);
     this.socket.on('disconnect', that.onDisconnect);
     this.socket.on('friend:requests', function(requests){
       that.onFriendRequests(requests);
@@ -43,6 +51,10 @@ class BeamHandler{
   
   onConnection(msg){
 
+  }
+  
+  showAllUsers(users){
+    console.log("users", users);
   }
   
   onDisconnect(msg){
@@ -101,7 +113,7 @@ persistance.getUserToken().then(function(token){
 
 var logIn = function(user){
   return new Promise(function(resolve, reject) {
-    $.post( "http://beam.azurewebsites.net/api/login/", user)
+    $.post( server[mode] + "/api/login/", user)
     .done(function(res) {
       console.log('logged in');
       let token = res.token;
@@ -120,7 +132,7 @@ var logIn = function(user){
 
 var logout = function(){
   return new Promise(function(resolve, reject){
-    $.get("http://beam.azurewebsites.net/logout")
+    $.get(server[mode] + "/logout")
     .done(function(res){
       resolve();
     })
