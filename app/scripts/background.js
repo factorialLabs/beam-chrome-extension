@@ -21,7 +21,6 @@ class BeamHandler{
     });
 
     this.socket.on('authenticated', function (socket) {
-      that.socket.emit("users:request:show all");
     });
 
    /**
@@ -29,7 +28,9 @@ class BeamHandler{
     * Handle messages received from socket server
     */
     this.socket.on('incoming beam', that.onIncomingBeam);
-    this.socket.on('users:show all', that.showAllUsers);
+    this.socket.on('users:show all', function(requests){
+      that.onShowFriends(requests);
+    });
     this.socket.on('disconnect', that.onDisconnect);
     this.socket.on('friend:requests', function(requests){
       that.onFriendRequests(requests);
@@ -53,8 +54,13 @@ class BeamHandler{
 
   }
   
-  showAllUsers(users){
-    console.log("users", users);
+  onShowFriends(msg){
+    console.log("users", msg.users);
+    this.friendList = msg.users;
+  }
+  
+  getFriends(){
+      return this.friendList;
   }
   
   onDisconnect(msg){
@@ -197,6 +203,9 @@ chrome.runtime.onMessage.addListener(
       case 'background::friend:requests:get':
         console.log(beamHandler.getFriendRequests())
         sendResponse(beamHandler.getFriendRequests());
-        break;      
+        break;     
+      case 'background::friends:get':
+        sendResponse(beamHandler.getFriends());
+        break;   
       }
   });

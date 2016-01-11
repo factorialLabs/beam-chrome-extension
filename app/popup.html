@@ -13,9 +13,15 @@
   <body id="beam-popup">
     <h1>Beam</h1>
     <section id="beam-action">
-        <input id="beamRecipient" class="beam-input" placeholder="recipient">
         <input id="beamMessage" class="beam-input" placeholder="Message">
-        <button id="beamTab" class="beam-button" type="submit">Beam me!</button>
+        <div id="beamFriendList">
+            
+        </div>
+        <!-- 
+            We would need a button if we ever implement sending tab to multiple users
+            But for now we can omit it.
+            <button id="beamTab" class="beam-button" type="submit">Beam me!</button>
+        -->
 
         <div id="addFriend">
             <input id="addFriendEmail" class="beam-input" placeholder="Username">

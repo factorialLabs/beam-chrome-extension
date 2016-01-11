@@ -45,25 +45,44 @@ chrome.runtime.sendMessage({action: 'background::user:isLoggedIn'}, response => 
 	handleLoginState(response.loggedInState);
 });
 
+//get friends from service
+chrome.runtime.sendMessage({action: 'background::friends:get'}, users => {
+        if(!users){
+            return;
+        }
+        
+        for(let user of users){
+            $('#beamFriendList').append(
+				"<button class='friend beam-button'>" + user.email + "</button>"
+			);
+        }
+        console.log("friend list loaded");
+});   
+
 //get friend request state from background.js
 chrome.runtime.sendMessage({action: 'background::friend:requests:get'}, response => {
 	console.log(response);
+    if(!response){
+        return;
+    }
 	for(let i of response){
 			$('#pendingFriendRequests').append(
 				"<h2>" + i.email + "</h2>"
 			);
 	}
-	$('#pendingFriendRequests').show(1000);
+	$('#pendingFriendRequests').show(500);
 });
 
-$('#beamTab').click(function(){
+$(document).on('click', "button.friend", function() {
+    console.log('friend clicked');
+    var email = $(this).text();
 	chrome.tabs.query({ currentWindow: true, active: true }, tabs => {
 		//current tab is tabs[0]
 		var message = {
 			action: "background::beam:send",
 			data: {
 				message: $("#beamMessage").val(),
-				recipient: $("#beamRecipient").val(),
+				recipient: email,
 				url: tabs[0].url
 			}
 		}
