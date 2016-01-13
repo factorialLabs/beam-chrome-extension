@@ -45,19 +45,24 @@ chrome.runtime.sendMessage({action: 'background::user:isLoggedIn'}, response => 
 	handleLoginState(response.loggedInState);
 });
 
-//get friends from service
-chrome.runtime.sendMessage({action: 'background::friends:get'}, users => {
-        if(!users){
-            return;
-        }
-        
-        for(let user of users){
-            $('#beamFriendList').append(
-				"<button class='friend beam-button'>" + user.email + "</button>"
-			);
-        }
-        console.log("friend list loaded");
-});   
+$(document).ready(function() {
+    //get friends from service
+    chrome.runtime.sendMessage({action: 'background::friends:get'}, users => {
+            if(!users){
+                return;
+            }
+            
+            for(let user of users){
+                $('#beamFriendList').append(
+                    "<button class='friend beam-button'>" +
+                    (user.isConnected ? "✔ " : "") +
+                    user.email +
+                    "</button>"
+                );
+            }
+            console.log("friend list loaded");
+    });   
+});
 
 //get friend request state from background.js
 chrome.runtime.sendMessage({action: 'background::friend:requests:get'}, response => {

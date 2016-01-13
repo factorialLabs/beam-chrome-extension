@@ -1,5 +1,5 @@
 'use strict';
-var mode = "prod";
+var mode = "debug";
 
 var server = {
     debug: "http://localhost:3000",
@@ -20,7 +20,8 @@ class BeamHandler{
       that.socket.emit('authenticate', {token: token}); //send the jwt
     });
 
-    this.socket.on('authenticated', function (socket) {
+    this.socket.on('authenticated', function (msg) {
+        that.socket.emit('user:show all:request');
     });
 
    /**
