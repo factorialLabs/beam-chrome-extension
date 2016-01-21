@@ -4,6 +4,9 @@ Chrome extension for Beam
 ### Dev instructions
 
 We're using webpack so we can do cool things like ES6 with polyfill and import/export with ease!
+Note, javascript source are in `/src` and other assets (manifest,(s)css,images,html) are in `/app`.
+Eventually we might want to extend our webpack script so that we can have everything for development in one folder, and app is
+purely what we can package as an extension with no extra fluff.
 
 1. First install dependencies with `npm install`
 
