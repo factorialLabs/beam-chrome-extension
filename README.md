@@ -25,7 +25,7 @@ if there is ever a merge conflict, just run `npm run build`, `git add app/script
 
 - [ ] Set up better testing (with flow, phantomJS)
 
-- [ ] Better debugging?
+- [x] Better debugging? Solved: inline-sourcemap should make the stack traces a lot more readable. [See this]](https://blog.jetbrains.com/webstorm/2015/09/debugging-webpack-applications-in-webstorm/)
 
 - [ ] We probably want to migrate the client to a better MVC library like React.JS or Vue.js. Jquery is already a pain.
 

@@ -39,45 +39,45 @@ export default class BeamHandler{
     });
   }
   
-  onFriendRequests(msg){
+  onFriendRequests(msg) {
     console.log('incoming friend requests', msg);
     this.friendRequests = msg.requests;
   }
   
-  getFriendRequests(){
+  getFriendRequests() {
     return this.friendRequests;
   }
   
-  onConnection(msg){
+  onConnection(msg) {
 
   }
   
-  onShowFriends(msg){
+  onShowFriends(msg) {
     console.log("users", msg.users);
     this.friendList = msg.users;
   }
   
-  getFriends(){
+  getFriends() {
       return this.friendList;
   }
   
-  onDisconnect(msg){
+  onDisconnect(msg) {
     
   }
   
-  sendBeamTab(data){
+  sendBeamTab(data) {
     console.log("beaming", data);
     this.socket.emit('beam tab', data);
     //TODO handle success from server, etc
   }
 
-  addFriend(email, cb){
+  addFriend(email, cb) {
     console.log("adding friend", email);
     this.socket.emit('send friend invite', email);
     //TODO handle success from server, etc
   }
   
-  onIncomingBeam(data){
+  onIncomingBeam(data) {
     chrome.tabs.create({url: data.url}, function(tab){
       // Now in the context of the (new) beamed tab. 
       _.extend(data, {

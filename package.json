@@ -3,7 +3,7 @@
   "private": true,
   "scripts": {
     "test": "./node_modules/jscs/bin/jscs .",
-    "watch": "node ./node_modules/webpack/bin/webpack.js --watch --devtool cheap-module-eval-source-map",
+    "watch": "node ./node_modules/webpack/bin/webpack.js --watch --devtool inline-source-map",
     "build": "NODE_ENV=production node ./node_modules/webpack/bin/webpack.js -p"
   },
   "dependencies": {
