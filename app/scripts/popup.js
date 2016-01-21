@@ -54,7 +54,7 @@ $(document).ready(function() {
             
             for(let user of users){
                 $('#beamFriendList').append(
-                    "<button class='friend beam-button'>" +
+                    "<button value='"+user.email+"' class='friend beam-button'>" +
                     (user.isConnected ? "✔ " : "") +
                     user.email +
                     "</button>"
@@ -80,7 +80,7 @@ chrome.runtime.sendMessage({action: 'background::friend:requests:get'}, response
 
 $(document).on('click', "button.friend", function() {
     console.log('friend clicked');
-    var email = $(this).text();
+    var email = $(this).attr("value");
 	chrome.tabs.query({ currentWindow: true, active: true }, tabs => {
 		//current tab is tabs[0]
 		var message = {
