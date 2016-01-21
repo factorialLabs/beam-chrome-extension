@@ -29,3 +29,4 @@ if there is ever a merge conflict, just run `npm run build`, `git add app/script
 
 - [ ] We probably want to migrate the client to a better MVC library like React.JS or Vue.js. Jquery is already a pain.
 
+- [ ] The timeout approach for the top purple message bar does not work too well on slow connections (ie. my connection)... Need a better way.
