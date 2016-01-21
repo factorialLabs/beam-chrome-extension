@@ -1,0 +1,5 @@
+{
+    "preset": "airbnb",
+    "disallowVar": true,
+    "excludeFiles": [ "./app/scripts/**"]
+}

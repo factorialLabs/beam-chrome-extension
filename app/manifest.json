@@ -10,10 +10,6 @@
   "default_locale": "en",
   "background": {
     "scripts": [
-      "libs/underscore/underscore.min.js",
-      "libs/socketio/socket.io.js",
-      "libs/jquery/jquery-1.11.3.min.js",
-      "scripts/persistance.js",
       "scripts/background.js"
     ]
   },
@@ -41,7 +37,6 @@
         "styles/beamed-message.css"
       ],
       "js": [
-        "libs/jquery/jquery-1.11.3.min.js",
         "scripts/contentscript.js"
       ],
       "run_at": "document_start",
@@ -59,6 +54,7 @@
     "default_title": "Beam",
     "default_popup": "popup.html"
   },
+  "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
   "web_accessible_resources": [
     "images/icon-48.png"
   ]

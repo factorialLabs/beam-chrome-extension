@@ -2,7 +2,7 @@
 /**
  * Class to handle setting persistance using Chrome's storage API and wraps everything around promises.
  */
-class Persistance{
+export default class Persistance{
 	constructor(){
 		
 	}
