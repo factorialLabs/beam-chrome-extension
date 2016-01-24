@@ -2,7 +2,7 @@ const webpack = require('webpack');
 
 module.exports = {
   entry: {
-    popup: ['babel-polyfill','./src/popup.js'],
+    popup: ['babel-polyfill','./src/popup/entry.js'],
     background: ['babel-polyfill','./src/background.js'],
     contentscript: ['babel-polyfill','./src/contentscript.js'],
     options: ['babel-polyfill','./src/options.js'],
@@ -14,11 +14,11 @@ module.exports = {
   module: {
     loaders: [
       {
-        test: /\.js$/,
+        test: [/\.js$/,/\.jsx$/],
         exclude: /node_modules/,
         loader: 'babel',
         query: {
-          presets: ['es2015-loose'],
+          presets: ['es2015', 'react'],
           cacheDirectory: true,
         },
       }, 

@@ -3,6 +3,7 @@ import BeamHandler from './handler/beamhandler';
 import Persistance from './utils/persistance';
 import {mode,server} from './serverConfig';
 import $ from 'jquery';
+import { FRIEND_LIST_UPDATE, LOGGED_IN_STATE_CHANGED, LOG_IN_SUBMIT, POPUP_OPEN } from './constants/actions.js';
 
 /*
 chrome.runtime.onInstalled.addListener(details => {
@@ -63,11 +64,19 @@ chrome.runtime.onMessage.addListener(
         sendResponse({status: 'received'});
         break;
         
-      case 'background::user:login':
+      case LOG_IN_SUBMIT:
         logIn(request.credentials)
-        .then(() => { sendResponse({success: true}); })
+        .then(() => { 
+          chrome.runtime.sendMessage({action: LOGGED_IN_STATE_CHANGED, loggedIn: true});
+          sendResponse({success: true});
+        })
         .catch((err) => { sendResponse({success: false, reason: err}); });
         return true; //alow async response
+        break;
+        
+      case POPUP_OPEN:
+        chrome.runtime.sendMessage({action: LOGGED_IN_STATE_CHANGED, loggedIn: persistance.isUserLoggedIn()});
+        chrome.runtime.sendMessage({action: FRIEND_LIST_UPDATE, friendList: beamHandler.getFriends()});
         break;
         
       case 'background::user:logout':
@@ -76,7 +85,10 @@ chrome.runtime.onMessage.addListener(
           .then(() => { return persistance.clearUserToken(); })
           // Confirm it's been removed
           .then(() => { return persistance.isUserLoggedIn(); })
-          .then((state) => { sendResponse({success: true, loggedIn: state}); })
+          .then((state) => { 
+	          chrome.runtime.sendMessage({action: LOGGED_IN_STATE_CHANGED, loggedIn: state});
+            sendResponse({success: true, loggedIn: state}); 
+          })
           .catch((err) => { sendResponse({success: false, reason: err}); })
         return true;
         break;
