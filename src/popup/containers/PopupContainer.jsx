@@ -60,12 +60,13 @@ class PopupContainer extends Component {
   }
   
   handleOnFriendClick(friend, beamMsg) {
+    const _this = this;
     chrome.tabs.query({ currentWindow: true, active: true }, tabs => {
       //current tab is tabs[0]
       var message = {
         action: "background::beam:send",
         data: {
-          //message: $("#beamMessage").val(),
+          message: _this.refs.message.value,
           recipient: friend.email,
           url: tabs[0].url,
         }
@@ -79,6 +80,13 @@ class PopupContainer extends Component {
     });
   }
   
+  handleLogOut() {
+    chrome.runtime.sendMessage({action: "background::user:logout"}, response => {
+      console.log(response);
+      this.handleLoginState(response.loggedIn);
+	  });
+  }
+  
   render() {
     const { increment, incrementIfOdd, incrementAsync, decrement, state } = this.props;
     console.log('%cRender ' + this.constructor.displayName + ' component', 'background: #FFF; color: #2aa198 ', 'state', this.state, 'props', this.props);
@@ -88,9 +96,14 @@ class PopupContainer extends Component {
       );
     } else {
       return (
-        <FriendList friendList={ this.state.friendList } onFriendClick={this.handleOnFriendClick}/>
-        //<FriendRequests />
-        //<LogOut />
+        <div>
+          <input id="beamMessage" className="beam-input" placeholder="Message" ref="message" />
+          <FriendList friendList={ this.state.friendList } onFriendClick={this.handleOnFriendClick.bind(this)}/>
+          {
+            //<FriendRequests />
+          }
+          <button className="beam-secondary-button" id="beamLogout" onClick={() => this.handleLogOut()}>Logout</button>
+        </div>
       );
     }
   }

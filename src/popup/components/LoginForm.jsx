@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { LOGIN_SUBMIT } from '../../constants/actions.js';
+import { LOG_IN_SUBMIT } from '../../constants/actions.js';
 
 class LoginForm extends Component {
   constructor(props) {
@@ -27,7 +27,7 @@ class LoginForm extends Component {
       email: this.refs.username.value,
       password: this.refs.password.value,
     };
-    chrome.runtime.sendMessage({action: LOGIN_SUBMIT, credentials: userObj}, response => {
+    chrome.runtime.sendMessage({action: LOG_IN_SUBMIT, credentials: userObj}, response => {
       if (!response.success){
         _this.setState({
           logInError: response.reason,

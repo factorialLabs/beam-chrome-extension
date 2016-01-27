@@ -3,7 +3,7 @@ import React, { Component, PropTypes } from 'react';
 class FriendList extends Component {
   constructor(props) {
     super(props);
-    if(this.props.friendList == undefined){
+    if(props.friendList == null){
       this.props = {
         friendList: [],
       };
@@ -31,7 +31,7 @@ class FriendList extends Component {
 
 FriendList.propTypes = {
   friendList: React.PropTypes.array,
-  onFriendClick: React.PropTypes.func.required,
+  onFriendClick: React.PropTypes.func.isRequired,
 };
 
 
