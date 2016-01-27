@@ -119,3 +119,15 @@ chrome.runtime.onMessage.addListener(
       }
 
 });
+
+chrome.runtime.onConnect.addListener((port) => {
+  console.assert(port.name == "startup");
+  port.onMessage.addListener((msg) => {
+    if (msg.action == POPUP_OPEN){
+      persistance.isUserLoggedIn().then(state => {
+        port.postMessage({action: LOGGED_IN_STATE_CHANGED, loggedIn: state});
+        port.postMessage({action: FRIEND_LIST_UPDATE, friendList: beamHandler.getFriends()});
+      });
+    }
+  });
+});

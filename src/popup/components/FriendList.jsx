@@ -3,15 +3,17 @@ import React, { Component, PropTypes } from 'react';
 class FriendList extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      friendList: [],
-    };
+    if(this.props.friendList == undefined){
+      this.props = {
+        friendList: [],
+      };
+    }
   }
   
   render() {
-    if (this.state.friendList.length > 0) {
-      let rows = this.state.friendList.map((user, index) => {
-        return (<button value={ user.email } class='friend beam-button'>
+    if (this.props.friendList.length > 0) {
+      let rows = this.props.friendList.map((user, index) => {
+        return (<button key={index} onClick={() => this.props.onFriendClick(this.props.friendList[index])} value={ user.email } className='friend beam-button'>
                       { (user.isConnected ? "✔ " : "") }
                       { user.email }
                  </button>);
@@ -29,6 +31,7 @@ class FriendList extends Component {
 
 FriendList.propTypes = {
   friendList: React.PropTypes.array,
+  onFriendClick: React.PropTypes.func.required,
 };
 
 

@@ -38,7 +38,45 @@ class PopupContainer extends Component {
   }
   
   pingBackgroundService() {
-    	chrome.runtime.sendMessage({action: POPUP_OPEN});
+    const _this = this;
+    var port = chrome.runtime.connect({name: "startup"});
+    port.postMessage({action: POPUP_OPEN});
+    port.onMessage.addListener(function(msg) {
+      switch (msg.action){
+        case LOGGED_IN_STATE_CHANGED:
+          _this.setState({
+            loggedIn: msg.loggedIn,
+          });
+          break;
+        case FRIEND_LIST_UPDATE:
+          _this.setState({
+            friendList: msg.friendList,
+          });
+          break;
+        default:
+          break;
+      }
+    });
+  }
+  
+  handleOnFriendClick(friend, beamMsg) {
+    chrome.tabs.query({ currentWindow: true, active: true }, tabs => {
+      //current tab is tabs[0]
+      var message = {
+        action: "background::beam:send",
+        data: {
+          //message: $("#beamMessage").val(),
+          recipient: friend.email,
+          url: tabs[0].url,
+        }
+      }
+      chrome.runtime.sendMessage(message, response => {
+        //callback from background.js
+        console.log(response.status);
+        //TODO show currently beaming screen then close the window
+        //window.close();
+      });
+    });
   }
   
   render() {
@@ -50,7 +88,7 @@ class PopupContainer extends Component {
       );
     } else {
       return (
-        <FriendList friendList={ this.state.friendList } />
+        <FriendList friendList={ this.state.friendList } onFriendClick={this.handleOnFriendClick}/>
         //<FriendRequests />
         //<LogOut />
       );
