@@ -11,7 +11,7 @@ class FriendList extends Component {
   }
   
   render() {
-    if (this.props.friendList.length > 0) {
+    if (this.props.friendList && this.props.friendList.length > 0) {
       let rows = this.props.friendList.map((user, index) => {
         return (<button key={index} onClick={() => this.props.onFriendClick(this.props.friendList[index])} value={ user.email } className='friend beam-button'>
                       { (user.isConnected ? "✔ " : "") }

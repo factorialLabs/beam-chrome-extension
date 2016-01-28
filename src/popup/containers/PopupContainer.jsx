@@ -75,7 +75,7 @@ class PopupContainer extends Component {
         //callback from background.js
         console.log(response.status);
         //TODO show currently beaming screen then close the window
-        //window.close();
+        window.close();
       });
     });
   }
