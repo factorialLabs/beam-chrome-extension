@@ -7,11 +7,16 @@
     "build": "NODE_ENV=production node ./node_modules/webpack/bin/webpack.js -p"
   },
   "dependencies": {
+    "css-loader": "^0.23.1",
+    "extract-text-webpack-plugin": "^1.0.1",
     "jquery": "^2.2.0",
-    "socket.io-client": "^1.4.4",
-    "underscore": "^1.8.3",
+    "node-sass": "^3.4.2",
     "react": "0.14.x",
-    "react-dom": "0.14.x"
+    "react-dom": "0.14.x",
+    "sass-loader": "^3.1.2",
+    "socket.io-client": "^1.4.4",
+    "style-loader": "^0.13.0",
+    "underscore": "^1.8.3"
   },
   "devDependencies": {
     "babel-core": "6.3.26",

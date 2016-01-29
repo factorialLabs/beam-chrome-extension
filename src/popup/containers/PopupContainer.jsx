@@ -3,6 +3,8 @@ import { LOGGED_IN_STATE_CHANGED, FRIEND_LIST_UPDATE, POPUP_OPEN } from '../../c
 import LoginForm from '../components/LoginForm.jsx';
 import FriendList from '../components/FriendList.jsx';
 
+require("../../scss/popup.scss");
+
 class PopupContainer extends Component {
   constructor(props) {
     super(props);

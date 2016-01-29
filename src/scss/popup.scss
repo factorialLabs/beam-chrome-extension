@@ -3,9 +3,12 @@
 }
 
 #beam-popup{
+  width: 250px;
   padding: 20px;
   text-align: center;
   background-color: rgb(138, 43, 226);
+  color: white;
+  
   p{
     color: white;
   }
@@ -16,6 +19,37 @@
     letter-spacing: 0.3px;
     font-size: 35px;
     margin: 0 0 10px 0;
+  }
+  ul.friend-list {
+    list-style: none;
+    padding:0;
+    margin:0;
+    text-align: left;
+    li {
+      padding: 5px;
+      transition: all .2s ease;
+      font-size: 18px;
+      cursor: pointer;
+      &:hover{
+        background-color: transparentize(white, 0.4);
+      }
+    }
+    &.online{
+      li:before {
+        content: "• ";
+        color: green;
+      }
+    } 
+    &.offline{
+      color: lightgray;
+      li {
+        cursor: not-allowed;
+      }
+      li:before {
+        content: "• ";
+        color: red;
+      }
+    } 
   }
   .beam-input{
     font-size: 16px;

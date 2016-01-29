@@ -10,18 +10,46 @@ class FriendList extends Component {
     }
   }
   
+  renderList(userList) {
+    return userList.map((user, index) => {
+        return (
+          <li 
+            key={index}
+            onClick={() => this.props.onFriendClick(this.props.friendList[index])} 
+            value={ user.email } 
+            className='friend'>
+              { user.email }
+          </li>
+          );
+    });
+  }
+  
   render() {
     if (this.props.friendList && this.props.friendList.length > 0) {
-      let rows = this.props.friendList.map((user, index) => {
-        return (<button key={index} onClick={() => this.props.onFriendClick(this.props.friendList[index])} value={ user.email } className='friend beam-button'>
-                      { (user.isConnected ? "✔ " : "") }
-                      { user.email }
-                 </button>);
+      const onlineAndOfflineUsers = this.props.friendList.reduce((accumulator, user) => {
+        if (user.isConnected) {
+          accumulator.online.push(user);
+        } else {
+          accumulator.offline.push(user);
+        } 
+        return accumulator;
+      }, {
+        online: [],
+        offline: [],
       });
+
+      const onlineLayout = this.renderList(onlineAndOfflineUsers.online);
+      const offlineLayout = this.renderList(onlineAndOfflineUsers.offline);
+
       return (
-          <div id="beamFriendList">
-              {rows}
-          </div>
+        <div>
+          <ul className="online friend-list">
+              {onlineLayout}
+          </ul>
+          <ul className="offline friend-list">
+              {offlineLayout}
+          </ul>
+        </div>
       );
     } else {
       return null;
